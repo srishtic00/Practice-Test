@@ -1,0 +1,78 @@
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+int main() {
+   while(true)
+   {
+       int size;
+       cin>>size;
+       if(size==0)
+       break;
+       int arr[size];
+       for(int i=0;i<size;i++)
+       cin>>arr[i];
+
+       int finalarr[size];
+       int index=0;
+       stack<int> st;
+       for(int i=0;i<size;i++)
+       {
+           if(st.empty())
+           {
+               st.push(arr[i]);
+           }
+           else if(st.top()>arr[i])
+           st.push(arr[i]);
+           else{
+               while(!st.empty() && st.top()<arr[i])
+               {
+                   finalarr[index++]=st.top();
+                   st.pop();
+               }
+               st.push(arr[i]);
+           }
+       }
+       while(!st.empty())
+       {
+           finalarr[index++]=st.top();
+           st.pop();
+
+       }
+       int flag=0;
+       for(int i=0;i<size-1;i++)
+       {
+           if(finalarr[i]>finalarr[i+1])
+           {
+               flag=1;
+               break;
+           }
+       }
+       if(flag==0)
+       cout<<"yes"<<endl;
+       else 
+       cout<<"no"<<endl;
+   }
+    return 0;
+}
+
