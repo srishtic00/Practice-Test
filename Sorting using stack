@@ -1,0 +1,109 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+#define MAX 1000
+typedef struct
+{
+int top;
+int item[MAX];
+}stack;
+void init(stack *s)
+{
+s->top=-1;
+}
+int empty(stack *s)
+{
+return(s->top==-1);
+}
+int full(stack *s)
+{
+return(s->top==MAX-1);
+}
+void push(stack *s,int a)
+{
+if (full(s))
+{
+printf("stack is full");
+exit(0);
+}
+else
+s->item[++s->top]=a;
+}
+int pop(stack *s)
+{
+if(empty(s))
+return (-1);
+else
+return(s->item[s->top--]);
+}
+
+int peek(stack *s)
+{
+    return s->item[s->top];
+}
+stack sort;
+void sortfun(stack source,stack losers);
+
+void sortfun(stack source,stack losers)
+{
+int count=0;
+stack *s=&source;
+int n=(s->top)+1;
+while(count!=n)
+{
+    while(!(empty(&source)))
+    {
+        if(empty(&sort))
+        {
+            push(&sort,pop(&source));
+            count++;
+        }
+        else if(peek(&sort)>peek(&source)) {
+            push(&sort,pop(&source));
+            count++;
+
+        }
+        else{
+            while((!empty(&sort))&&(peek(&sort))<peek(&source))
+            {
+                push(&losers,pop(&sort));
+                count--;
+            }
+            push(&sort,pop(&source));
+            count++;
+        }
+    }
+    if(count==n)
+    break;
+    while(!(empty(&losers)))
+    {
+        if(empty(&sort))
+        {
+            push(&sort,pop(&losers));
+            count++;
+        }
+        else if(peek(&sort)>peek(&losers)) {
+            push(&sort,pop(&losers));
+            count++;
+
+        }
+        else{
+            while((!empty(&sort))&&(peek(&sort))<peek(&losers))
+            {
+                push(&source,pop(&sort));
+                count--;
+            }
+            push(&sort,pop(&losers));
+            count++;
+
+        }
+    }
+}   
+    
+}
+
+int main()
