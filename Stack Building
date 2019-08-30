@@ -1,0 +1,42 @@
+using namespace std;
+#include<iostream>
+#define max 5
+template<class T>
+class stack{
+    private:
+    int top;
+    T item[max];
+    public:
+    stack()
+    {
+        top=-1;
+    }
+    void push()
+    {
+        T a;
+        cin>>a;
+        item[++top]=2*a;
+
+    }
+    void pop()
+    {top--;}
+    void show()
+    {
+        int i;
+        for(i=0;i<=top;i++)
+        cout<<item[i]<<" ";
+    
+    cout<<endl;
+}
+};
+
+
+
+
+
+
+
+
+
+
+int main()
