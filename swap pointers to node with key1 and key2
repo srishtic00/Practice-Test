@@ -1,0 +1,82 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+int info;
+node *link;
+};
+int main()
+{
+int i,k,key1,key2,item;
+struct node *start,*n,*ptr,*loc1,*loc2,*loc1p,*loc2p;
+scanf("%d",&k);
+start=NULL;
+for(i=0;i<k;i++)
+{
+    scanf("%d",&item);
+    n=(struct node*)malloc(sizeof(struct node));
+    n->info=item;
+    n->link=start;
+    start=n;
+}
+scanf("%d %d",&key1,&key2);
+ptr=start;
+while(ptr)
+{
+    printf("%d ",ptr->info);
+    ptr=ptr->link;
+
+}
+ptr=start;
+loc1p=start;
+loc1=start;
+loc2p=start;
+loc2=start;
+while((ptr->info)!=key1)
+{
+    loc1p=ptr;
+    ptr=ptr->link;
+}
+loc1=ptr;
+if(loc1==start)
+{
+    ptr=loc2->link;
+    loc2->link=loc1->link;
+    start=loc2;
+    loc2p->link=loc1;
+    loc1->link=ptr;
+}
+else if(loc2==start)
+{
+    ptr=loc1->link;
+    loc1->link=loc2->link;
+    start=loc1;
+    loc1p->link=loc2;
+    loc2->link=ptr;
+}
+else{
+    ptr=loc2->link;
+    loc2->link=loc1->link;
+    loc1->link=ptr;
+    loc1p->link=loc2;
+    loc2p->link=loc1;
+}
+printf("\n");
+ptr=start;
+while(ptr)
+{
+    printf("%d ",ptr->info);
+    ptr=ptr->link;
+}
+
+
+
+
+
+
+
+
+
+
+
+return 0;
