@@ -1,0 +1,57 @@
+#include <assert.h>
+#include <limits.h>
+#include <math.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* readline();
+
+
+
+// Complete the braces function below.
+
+// Please store the size of the string array to be returned in result_count pointer. For example,
+// char a[2][6] = {"hello", "world"};
+//
+// *result_count = 2;
+//
+// return a;
+//
+char** braces(int values_count, char** values, int* result_count) {
+    *result_count=values_count;
+char** result=(char**)malloc(values_count*sizeof(char*));
+for(int i=0;i<values_count;i++)
+{
+    int length=strlen(values[i]);
+    int stack[length];
+    int k=-1;
+    for(int j=0;j<strlen(values[i]);j++)
+    {
+        if(values[i][j]=='(' || values[i][j]=='[' || values[i][j]=='{')
+            stack[++k]=values[i][j];
+        else
+        {
+         if((values[i][j]==')' && stack[k]=='(' )||( values[i][j]=='}'  && stack[k]=='{')|| (values[i][j]==']' && stack[k]=='['))
+        --k;
+        else{
+            stack[++k]=values[i][j];
+            break;
+        }
+
+        }
+    }
+    if(k==-1)
+    result[i]="YES";
+    else{
+        result[i]="NO";
+    }
+}
+return result;
+
+}
+
+int main()
