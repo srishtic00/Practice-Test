@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+/* structure for a node */
+struct node
+{
+  int data;
+  struct node *next;
+};
+
+void sortedInsert(struct node** head_ref, struct node* new_node)
+{
+   struct node* curr=*head_ref;
+
+   if(curr==NULL)
+   {
+       new_node->next=new_node;
+       *head_ref=new_node;
+   }
+   else if(curr->data>=new_node->data)
+   {
+       while(curr->next!=*head_ref)
+       curr=curr->next;
+       curr->next=new_node;
+       new_node->next=*head_ref;
+       *head_ref=new_node;
+   }
+   else{
+       while(curr->next!=*head_ref && curr->next->data<new_node->data)
+       curr=curr->next;
+       new_node->next=curr->next;
+       curr->next=new_node;
+   }
+
+    
+}
+
+void printList(struct node *start)
