@@ -1,0 +1,130 @@
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <limits.h>
+#include <stdbool.h>
+typedef struct listnode{
+    int data;
+    struct listnode* next;
+}node;
+node* push(node* head,int val)
+{
+node* new_node=(node*)malloc(sizeof(node));
+new_node->data=val;
+new_node->next=NULL;
+if(head==NULL)
+return new_node;
+else{
+    node* curr=head;
+    while(curr->next!=NULL)
+    curr=curr->next;
+    curr->next=new_node;
+}
+return head;
+}
+void print(node* head)
+{
+    node* curr=head;
+    if(!curr->next)
+    {
+    printf("%d ",curr->data);
+    return ;
+    }
+    else {
+        print(curr->next);
+        printf("%d ",curr->data);
+    }
+}
+node* merge(node* head,node* head2)
+{
+    node* head3=(node*)malloc(sizeof(node));
+    if(head->data<head2->data)
+    {
+    head3->data=head->data;
+    head3->next=NULL;
+    head=head->next;
+    }
+    else
+    {
+       head3->data=head2->data;
+    head3->next=NULL; 
+    head2=head2->next;
+    }
+    while(head && head2)
+    {
+        node* newn=(node*)malloc(sizeof(node));
+        if(head->data > head2->data)
+        {
+            newn->data=head2->data;
+            node* curr=head3;
+            while(curr && curr->next)
+            {
+                curr=curr->next;
+            }
+            curr->next=newn;
+            newn->next=NULL;
+            head2=head2->next;
+
+        }
+        else {
+            newn->data=head->data;
+            node* curr=head3;
+            while(curr && curr->next)
+            {
+                curr=curr->next;
+            }
+            curr->next=newn;
+            newn->next=NULL;
+            head=head->next;
+        }
+    }
+    while(head){
+        node* newn=(node*)malloc(sizeof(node));
+        newn->data=head->data;
+        node* curr=head3;
+        while(curr && curr->next)
+        curr=curr->next;
+        curr->next=newn;
+        newn->next=NULL;
+        head=head->next;
+    }
+    while(head2){
+        node* newn=(node*)malloc(sizeof(node));
+        newn->data=head2->data;
+        node* curr=head3;
+        while(curr && curr->next)
+        curr=curr->next;
+        curr->next=newn;
+        newn->next=NULL;
+        head2=head2->next;
+    }
+return head3;
+}
+int main() {
+    node* head=NULL;
+    int i=0;
+    while(i<3)
+    {
+        int n;
+        scanf("%d",&n);
+        head=push(head,n);
+        i++;
+    }
+    node* head2=NULL;
+    int j=0;
+    while(j<3)
+    {
+        int n;
+        scanf("%d",&n);
+        head2=push(head2,n);
+        j++;
+    }
+    /*print(head);
+    print(head2);*/
+    node* head3=merge(head,head2);
+    print(head3);
+    return 0;
+}
+
